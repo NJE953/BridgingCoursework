@@ -11,6 +11,10 @@
     text-decoration: none;
 }
 
+.page-header p {
+    font-size: 17pt;
+}
+
 .content {
     margin-left: 40px;
 }
