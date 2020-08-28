@@ -8,6 +8,23 @@
             </div>
             <h2><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h2>
             <p>{{ post.text|linebreaksbr }}</p>
+            {% if user.is_authenticated %}
+                {% if post.comments.count == 0 %}
+                    <a href="{% url 'post_detail' pk=post.pk %}">No comments</a>
+                {% elif post.comments.count == 1 %}
+                    <a href="{% url 'post_detail' pk=post.pk %}">{{ post.comments.count }} comment</a>
+                {% else %}
+                    <a href="{% url 'post_detail' pk=post.pk %}">{{ post.comments.count }} comments</a>
+                {% endif %}
+            {% else %}
+                {% if post.approved_comments.count == 0 %}
+                    <a href="{% url 'post_detail' pk=post.pk %}">No comments</a>
+                {% elif post.approved_comments.count == 1 %}
+                    <a href="{% url 'post_detail' pk=post.pk %}">{{ post.approved_comments.count }} comment</a>
+                {% else %}
+                    <a href="{% url 'post_detail' pk=post.pk %}">{{ post.approved_comments.count }} comments</a>
+                {% endif %}
+            {% endif %}            
         </div>
     {% endfor %}
 {% endblock %}
